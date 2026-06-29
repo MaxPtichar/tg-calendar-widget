@@ -15,7 +15,7 @@ impl CalendarButton {
     /// # Examples
     ///
     /// ```
-    /// use calendar::models::CalendarButton;
+    /// use tg_calendar_widget::models::CalendarButton;
     ///
     /// let button = CalendarButton::new("15", "move_to:2026-06-15");
     /// assert_eq!(button.text, "15");
@@ -83,7 +83,7 @@ pub enum BackTo {
 /// # Examples
 ///
 /// ```
-/// use calendar::models::CalendarAction;
+/// use tg_calendar_widget::models::CalendarAction;
 ///
 /// fn handle(action: CalendarAction) {
 ///     match action {
@@ -114,7 +114,7 @@ pub enum CalendarAction {
 ///
 /// ```
 /// use chrono::NaiveDate;
-/// use calendar::models::CalendarConfig;
+/// use tg_calendar_widget::models::CalendarConfig;
 ///
 /// let config = CalendarConfig {
 ///     min_date: Some(NaiveDate::from_ymd_opt(2026, 1, 1).unwrap()),
@@ -138,7 +138,7 @@ impl CalendarConfig {
     ///
     /// ```
     /// use chrono::NaiveDate;
-    /// use calendar::models::CalendarConfig;
+    /// use tg_calendar_widget::models::CalendarConfig;
     ///
     /// let config = CalendarConfig {
     ///     min_date: Some(NaiveDate::from_ymd_opt(2026, 1, 1).unwrap()),
@@ -165,7 +165,7 @@ impl CalendarConfig {
     ///
     /// ```
     /// use chrono::NaiveDate;
-    /// use calendar::models::CalendarConfig;
+    /// use tg_calendar_widget::models::CalendarConfig;
     ///
     /// let config = CalendarConfig {
     ///     min_date: Some(NaiveDate::from_ymd_opt(2024, 1, 1).unwrap()),

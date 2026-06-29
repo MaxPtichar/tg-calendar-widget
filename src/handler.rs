@@ -55,7 +55,7 @@ impl CalendarEvent {
     ///
     /// ```
     /// use chrono::NaiveDate;
-    /// use calendar::models::CalendarEvent;
+    /// use tg_calendar_widget::models::CalendarEvent;
     ///
     /// let event = CalendarEvent::MoveMonth(NaiveDate::from_ymd_opt(2026, 3, 23).unwrap());
     /// assert_eq!(event.to_callback(), "c:move:23.03.2026");
@@ -103,8 +103,8 @@ impl CalendarAction {
     /// # Examples
     ///
     /// ```
-    /// use calendar::models::{CalendarAction, CalendarConfig};
-    /// use calendar::locale::types::Locale;
+    /// use tg_calendar_widget::models::{CalendarAction, CalendarConfig};
+    /// use tg_calendar_widget::locale::types::Locale;
     ///
     ///
     /// let config = CalendarConfig::default();

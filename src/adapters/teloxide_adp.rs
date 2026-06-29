@@ -24,9 +24,9 @@ impl From<CalendarButton> for InlineKeyboardButton {
 /// ```
 /// use chrono::NaiveDate;
 /// use teloxide::types::InlineKeyboardMarkup;
-/// use calendar::builder::build_calendar;
-/// use calendar::models::CalendarConfig;
-/// use calendar::locale::types::Locale;
+/// use tg_calendar_widget::builder::build_calendar;
+/// use tg_calendar_widget::models::CalendarConfig;
+/// use tg_calendar_widget::locale::types::Locale;
 ///
 /// let date = NaiveDate::from_ymd_opt(2026, 6, 15).unwrap();
 /// let config = CalendarConfig::default();

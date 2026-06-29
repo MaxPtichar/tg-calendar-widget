@@ -36,7 +36,7 @@ let markup = build_calendar(date, &locale, |d| d.format("%d.%m.%Y"), &config);
  
 `markup` is a `CalendarMarkup` — a framework-agnostic grid of `CalendarButton`s. Enable the `teloxide` feature to convert it directly into an `InlineKeyboardMarkup`:
  
-```rust
+```rust, ignore
 use teloxide::types::InlineKeyboardMarkup;
  
 let keyboard: InlineKeyboardMarkup = markup.into();
@@ -86,7 +86,7 @@ const FR: Locale = Locale {
  
 This is the pattern used in production: a `dptree` filter routes calendar callbacks to a dedicated handler, which renders the grid and edits the message in place.
  
-```rust
+```rust, ignore
 use teloxide::dispatching::UpdateFilterExt;
 use teloxide::prelude::*;
 use teloxide::types::{CallbackQuery, InlineKeyboardMarkup};
@@ -158,7 +158,7 @@ pub fn calendar_schema() -> teloxide::dispatching::UpdateHandler<Box<dyn std::er
  
 Reading a selected date back out of a `Custom` callback (e.g. when the day button's callback data is the date itself, not a calendar-internal command):
  
-```rust
+```rust, , ignore
 use chrono::NaiveDate;
  
 if let Some(CalendarAction::Custom(data)) = action {
