@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 license = "MIT OR Apache-2.0"
+description = "Calendar grid widget for Telegram bots — day, month, and year pickers, with optional teloxide support"
+repository = "https://github.com/MaxPtichar/tg-calendar-widget"
+keywords = ["telegram", "calendar", "teloxide", "bot"]
+categories = ["date-and-time"]
 
 [dependencies]
 chrono = "0.4.38"
