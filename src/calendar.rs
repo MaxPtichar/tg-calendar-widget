@@ -6,9 +6,6 @@ use crate::{
     models::{CalendarButton, CalendarConfig, CalendarEvent, CalendarMarkup},
 };
 
-
-
-
 /// Builds the main day-grid UI: year row, month-navigation row, weekday
 /// header row, and the day grid itself (6 rows × 7 columns, Monday-first).
 ///
@@ -61,7 +58,7 @@ where
     F: Fn(NaiveDate) -> T,
     T: ToString,
 {
-     let Some(start_date) = dates.first() else {
+    let Some(start_date) = dates.first() else {
         return CalendarMarkup::new(vec![vec![CalendarButton::new(
             "No dates available",
             CalendarEvent::Ignore.to_callback(),
@@ -111,8 +108,6 @@ where
 
     res
 }
-
-
 
 /// Builds the navigation row above the day grid: previous/next month
 /// buttons flanking a central button that opens the month picker.
@@ -190,7 +185,6 @@ pub fn year_button(date: &NaiveDate) -> Vec<CalendarButton> {
         CalendarEvent::ShowYears(*date).to_callback(),
     )]
 }
-
 
 /// Construct day's name grid
 fn week_days(locale: &Locale) -> Vec<CalendarButton> {

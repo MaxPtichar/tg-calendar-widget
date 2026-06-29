@@ -91,7 +91,6 @@ fn allowed_dates_for_month(current_date: NaiveDate, config: &CalendarConfig) -> 
         .collect::<Vec<NaiveDate>>()
 }
 
-
 /// Lays out the 6×7 day grid for a given month into fixed array positions,
 /// based on which weekday the month starts on (Monday-first).
 ///
@@ -109,7 +108,6 @@ pub(crate) fn calendar_grid(dates: &[NaiveDate]) -> Option<[Option<NaiveDate>; 4
 
     Some(grid)
 }
-
 
 /// Lays out the previous/back/next navigation row beneath the year grid.
 ///
@@ -161,7 +159,6 @@ fn years_switcher(
     vec![past_years_button, back_to_month, future_years_button]
 }
 
-
 /// Builds the year picker grid: a 3×3 grid of 9 consecutive years
 /// centered on `date`'s year, plus a navigation row.
 ///
@@ -207,7 +204,7 @@ pub(crate) fn year_grid(date: &NaiveDate, config: &CalendarConfig) -> CalendarMa
                 let formatted_year = format!("  {year}  ");
                 Some(CalendarButton::new(
                     formatted_year,
-                    CalendarEvent::ShowMonths(created_date, crate::models::BackTo::BackToYears )
+                    CalendarEvent::ShowMonths(created_date, crate::models::BackTo::BackToYears)
                         .to_callback(),
                 ))
             } else {
@@ -227,7 +224,6 @@ pub(crate) fn year_grid(date: &NaiveDate, config: &CalendarConfig) -> CalendarMa
 
     CalendarMarkup::new(grid)
 }
-
 
 /// Builds the month picker grid for `date`'s year: a 3×4 grid of month
 /// names, plus a single "back" button.
@@ -403,15 +399,18 @@ mod tests {
 #[cfg(test)]
 mod empty_dates_tests {
     use super::*;
-    use chrono::NaiveDate;
+    use crate::locale::types::Locale;
     use crate::models::CalendarConfig;
-    use crate::locale::types::Locale; 
+    use chrono::NaiveDate;
 
     #[test]
     fn allowed_dates_for_month_returns_empty_when_fully_excluded() {
         let current_date = NaiveDate::from_ymd_opt(2026, 6, 1).unwrap();
         let min_date = NaiveDate::from_ymd_opt(2026, 7, 1).unwrap();
-        let config = CalendarConfig { min_date: Some(min_date), max_date: None };
+        let config = CalendarConfig {
+            min_date: Some(min_date),
+            max_date: None,
+        };
 
         let dates = allowed_dates_for_month(current_date, &config);
 
@@ -419,22 +418,25 @@ mod empty_dates_tests {
     }
 
     #[test]
-fn calendar_grid_returns_none_on_empty_dates() {
-    let empty: Vec<NaiveDate> = Vec::new();
-    assert_eq!(calendar_grid(&empty), None);
-}
+    fn calendar_grid_returns_none_on_empty_dates() {
+        let empty: Vec<NaiveDate> = Vec::new();
+        assert_eq!(calendar_grid(&empty), None);
+    }
 
-   #[test]
-fn build_calendar_shows_message_when_month_fully_excluded_by_config() {
-    let current_date = NaiveDate::from_ymd_opt(2026, 6, 1).unwrap();
-    let min_date = NaiveDate::from_ymd_opt(2026, 7, 1).unwrap();
-    let config = CalendarConfig { min_date: Some(min_date), max_date: None };
-    let locale = Locale::default();
+    #[test]
+    fn build_calendar_shows_message_when_month_fully_excluded_by_config() {
+        let current_date = NaiveDate::from_ymd_opt(2026, 6, 1).unwrap();
+        let min_date = NaiveDate::from_ymd_opt(2026, 7, 1).unwrap();
+        let config = CalendarConfig {
+            min_date: Some(min_date),
+            max_date: None,
+        };
+        let locale = Locale::default();
 
-    let markup = build_calendar(current_date, &locale, |d| d.to_string(), &config);
+        let markup = build_calendar(current_date, &locale, |d| d.to_string(), &config);
 
-    assert_eq!(markup.rows.len(), 1);
-    assert_eq!(markup.rows[0].len(), 1);
-    assert_eq!(markup.rows[0][0].text, "No dates available");
-}
+        assert_eq!(markup.rows.len(), 1);
+        assert_eq!(markup.rows[0].len(), 1);
+        assert_eq!(markup.rows[0][0].text, "No dates available");
+    }
 }

@@ -6,10 +6,8 @@
 //! [`InlineKeyboardButton`]/[`InlineKeyboardMarkup`] for projects using
 //! `teloxide`.
 
-
-
-use teloxide::types::{InlineKeyboardButton, InlineKeyboardMarkup};
 use crate::models::{CalendarButton, CalendarMarkup};
+use teloxide::types::{InlineKeyboardButton, InlineKeyboardMarkup};
 
 /// Converts a [`CalendarButton`] into a `teloxide` callback button.
 impl From<CalendarButton> for InlineKeyboardButton {

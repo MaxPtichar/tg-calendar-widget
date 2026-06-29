@@ -1,4 +1,3 @@
-
 #![doc = include_str!("../README.md")]
 //! A framework-agnostic inline calendar widget builder.
 //!

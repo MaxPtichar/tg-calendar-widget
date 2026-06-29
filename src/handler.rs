@@ -1,9 +1,9 @@
 use chrono::NaiveDate;
 
 use crate::{
-    builder::{build_calendar, month_grid, year_grid}, locale::types::Locale, models::{
-        BackTo, CalendarAction, CalendarConfig, CalendarEvent,
-    },
+    builder::{build_calendar, month_grid, year_grid},
+    locale::types::Locale,
+    models::{BackTo, CalendarAction, CalendarConfig, CalendarEvent},
 };
 
 /// Encoding/decoding of calendar callback data.
@@ -28,7 +28,6 @@ impl CalendarEvent {
     /// (e.g. a custom callback defined by the caller) or if it's an
     /// `ignore` callback.
     pub fn from_callback(data: &str) -> Option<Self> {
-    
         if data.contains("c:ignore:") {
             return None;
         }
@@ -43,14 +42,14 @@ impl CalendarEvent {
         match command {
             "move" => Some(Self::MoveMonth(date)),
             "months_c" => Some(Self::ShowMonths(date, BackTo::BackToCalendar)),
-            "months_y" => Some(Self::ShowMonths(date, BackTo::BackToYears )),
+            "months_y" => Some(Self::ShowMonths(date, BackTo::BackToYears)),
             "years" => Some(Self::ShowYears(date)),
             "calendar" => Some(Self::ShowCalendar(date)),
             _ => None,
         }
     }
 
-     /// Encodes this event back into its callback string representation.
+    /// Encodes this event back into its callback string representation.
     ///
     /// # Examples
     ///
@@ -68,7 +67,7 @@ impl CalendarEvent {
             CalendarEvent::MoveMonth(date) => format!("c:move:{}", date.format(fmt)),
             CalendarEvent::ShowMonths(date, backto) => match backto {
                 BackTo::BackToCalendar => format!("c:months_c:{}", date.format(fmt)),
-                BackTo::BackToYears  => format!("c:months_y:{}", date.format(fmt)),
+                BackTo::BackToYears => format!("c:months_y:{}", date.format(fmt)),
             },
             CalendarEvent::ShowYears(date) => format!("c:years:{}", date.format(fmt)),
             CalendarEvent::ShowCalendar(date) => format!("c:calendar:{}", date.format(fmt)),
@@ -78,7 +77,7 @@ impl CalendarEvent {
 }
 
 impl CalendarAction {
-     /// Parses a raw callback string and produces the corresponding action.
+    /// Parses a raw callback string and produces the corresponding action.
     ///
     /// If the callback matches a known [`CalendarEvent`] (navigation: moving
     /// to a date, switching to month/year picker view, going back), returns
@@ -106,7 +105,7 @@ impl CalendarAction {
     /// ```
     /// use calendar::models::{CalendarAction, CalendarConfig};
     /// use calendar::locale::types::Locale;
-    /// 
+    ///
     ///
     /// let config = CalendarConfig::default();
     /// let locale = Locale::default();
@@ -144,7 +143,7 @@ impl CalendarAction {
                 CalendarEvent::ShowMonths(date, back) => {
                     let back_event = match back {
                         BackTo::BackToCalendar => CalendarEvent::ShowCalendar(date),
-                        BackTo::BackToYears  => CalendarEvent::ShowYears(date),
+                        BackTo::BackToYears => CalendarEvent::ShowYears(date),
                     };
 
                     return Some(CalendarAction::Redraw(month_grid(
@@ -173,7 +172,6 @@ impl CalendarAction {
     }
 }
 
-
 /// Checks whether a callback string belongs to the calendar's namespace.
 ///
 /// Intended for use as a filter predicate in `dptree` routing, so that
@@ -181,9 +179,8 @@ impl CalendarAction {
 /// disabled buttons — are routed to the calendar handler, while other
 /// (unrelated) callbacks fall through to other handlers.
 pub fn is_calendar_callback(data: &str) -> bool {
-   data.starts_with("c:")
+    data.starts_with("c:")
 }
-
 
 #[cfg(test)]
 mod is_calendar_callback_tests {
@@ -211,8 +208,6 @@ mod is_calendar_callback_tests {
     }
 }
 
-
-
 #[cfg(test)]
 mod callback_tests {
     use super::*;
@@ -233,7 +228,10 @@ mod callback_tests {
 
         assert_eq!(
             event,
-            Some(CalendarEvent::ShowMonths(expected_date, BackTo::BackToCalendar))
+            Some(CalendarEvent::ShowMonths(
+                expected_date,
+                BackTo::BackToCalendar
+            ))
         );
     }
 
@@ -244,7 +242,10 @@ mod callback_tests {
 
         assert_eq!(
             event,
-            Some(CalendarEvent::ShowMonths(expected_date, BackTo::BackToYears))
+            Some(CalendarEvent::ShowMonths(
+                expected_date,
+                BackTo::BackToYears
+            ))
         );
     }
 
@@ -276,7 +277,10 @@ mod callback_tests {
 
     #[test]
     fn unknown_command_returns_none() {
-        assert_eq!(CalendarEvent::from_callback("c:bogus_command:01.01.2026"), None);
+        assert_eq!(
+            CalendarEvent::from_callback("c:bogus_command:01.01.2026"),
+            None
+        );
     }
 
     #[test]
