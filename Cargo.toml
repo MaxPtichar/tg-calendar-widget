@@ -16,3 +16,6 @@ teloxide = { version = "0.13.0", optional = true }
 [features]
 default = []
 teloxide = ["dep:teloxide"]
+
+[package.metadata.docs.rs]
+all-features = true
